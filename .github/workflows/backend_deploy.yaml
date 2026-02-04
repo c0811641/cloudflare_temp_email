@@ -55,7 +55,7 @@ jobs:
           
           # Initialize database tables
           echo "Applying D1 migrations..."
-          pnpm wrangler d1 migrations apply DB --remote --yes
+          pnpm wrangler d1 migrations apply DB --remote
 
           if [ -n "$use_mail_wasm_parser" ]; then
             echo "Using mail-parser-wasm-worker"
