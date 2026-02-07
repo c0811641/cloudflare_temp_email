@@ -220,7 +220,7 @@ export const newAddress = async (
     try {
         // Try insert with source_meta field first
         const result = await c.env.DB.prepare(
-            `INSERT INTO addres(name, source_meta) VALUES(?, ?)`
+            `INSERT INTO address(name, source_meta) VALUES(?, ?)`
         ).bind(name, sourceMeta).run();
         if (!result.success) {
             throw new Error(msgs.FailedCreateAddressMsg)
@@ -231,7 +231,7 @@ export const newAddress = async (
         // Fallback: source_meta field may not exist, try without it
         if (message && message.includes("source_meta")) {
             const result = await c.env.DB.prepare(
-                `INSERT INTO addres(name) VALUES(?)`
+                `INSERT INTO address(name) VALUES(?)`
             ).bind(name).run();
             if (!result.success) {
                 throw new Error(msgs.FailedCreateAddressMsg)
@@ -244,7 +244,7 @@ export const newAddress = async (
         }
     }
     const address_id = await c.env.DB.prepare(
-        `SELECT id FROM addres where name = ?`
+        `SELECT id FROM address where name = ?`
     ).bind(name).first<number>("id");
 
     // 如果启用地址密码功能，自动生成密码
